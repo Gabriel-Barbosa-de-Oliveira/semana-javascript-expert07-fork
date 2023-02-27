@@ -21,13 +21,13 @@ async function getWorker() {
 }
 
 const worker = await getWorker();
-console.log(worker)
+worker.postMessage("hey from factory")
 const [rootPath] = window.location.href.split('/pages/')
 const camera = await Camera.init();
 const factory = {
     async initalize() {
         return Controller.initialize({
-            view: new View({}),
+            view: new View(),
             service: new Service({
             })
         })
