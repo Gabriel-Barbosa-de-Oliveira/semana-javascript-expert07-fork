@@ -21,7 +21,7 @@ export default class HandGestureService {
             //porcentagem de confiança do gest(90%)
             9)
 
-       return predictions
+        return predictions.gestures
     }
 
     //Async iterator - a medida que for lendo ja manda a resposta
@@ -29,7 +29,14 @@ export default class HandGestureService {
         for (const hand of predictions) {
             if (!hand.keypoints3D) continue
             const gestures = await this.estimate(hand.keypoints3D)
-            console.log({gestures})
+            if (!gestures.length) continue;
+            const result = gestures.reduce((previous, current) => (previous.score > current.score) ? previous : current);
+            const { x, y } = hand.keypoints.find(keypoint => keypoint.name === "index_finger_tip")
+            yield { event: result.name, x, y }
+            
+            console.log("detected: ", gestureStrings[result.name])
+
+
         }
     }
 
