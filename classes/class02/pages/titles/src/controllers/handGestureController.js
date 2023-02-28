@@ -7,7 +7,7 @@ export default class HandGestureController {
     }
 
     async init() {
-
+        this.#service.initializeDetector();
     }
 
     static async initialize(deps) {
