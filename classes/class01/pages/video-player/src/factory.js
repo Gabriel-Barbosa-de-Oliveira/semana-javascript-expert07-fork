@@ -41,7 +41,7 @@ async function getWorker() {
 
     setTimeout(() => {
         worker.onmessage({data: "READY"})
-    }, 200);
+    }, 500);
     return workerMock;
 }
 
